@@ -217,3 +217,9 @@ Docs/Analiza biznesowa/Analiza biznesowa.toc
 *.dvi
 *.synctex.gz
 *.toc
+
+.idea/misc.xml
+.idea/modules.xml
+.idea/papieroski.iml
+.idea/vcs.xml
+.idea/workspace.xml
