@@ -13,14 +13,15 @@ for i in range(0, dark_reduct.shape[0]):
             imgblur[i][j] = 0
 
 cv.imwrite('./../blur.png', imgblur)
+
 imgblurblack = cv.adaptiveThreshold(imgblur, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY, 121, 2)
 cv.imwrite('./../blurblack.png', imgblurblack)
 
 edges = cv.Canny(imgblurblack, 0, 50)
 cv.imwrite('./../edges.png', edges)
-circles = cv.HoughCircles(imgblurblack, cv.HOUGH_GRADIENT, 5, 20, param1=50, param2=48, minRadius=12, maxRadius=17)
+circles = cv.HoughCircles(imgblurblack, cv.HOUGH_GRADIENT, 5, 22, param1=50, param2=44, minRadius=12, maxRadius=17)
 print('Found ', circles[0, :, 0].shape[0], 'circles')
-cv.imwrite('circles7.png', circles)
+
 if circles is not None:
     circles = np.uint16(np.around(circles))
 
