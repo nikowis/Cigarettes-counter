@@ -7,12 +7,7 @@ imgblur = cv.GaussianBlur(imgbin, (3, 3), 1)
 
 ret1, dark_reduct = cv.threshold(imgblur, 90, 255, cv.THRESH_BINARY)
 
-for i in range(0, dark_reduct.shape[0]):
-    for j in range(0, dark_reduct.shape[1]):
-        if dark_reduct[i][j] == 0:
-            imgblur[i][j] = 0
-
-cv.imwrite('./../blur.png', imgblur)
+imgblur[dark_reduct < 1] = 0
 
 imgblurblack = cv.adaptiveThreshold(imgblur, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY, 121, 2)
 cv.imwrite('./../blurblack.png', imgblurblack)
