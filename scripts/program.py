@@ -1,7 +1,7 @@
 import cv2 as cv
 import numpy as np
 
-img = imgbin = cv.imread('./../RecordedImage_GO-5000M-PGE_00-0C-DF-09-1B-B4_003.tif', cv.IMREAD_GRAYSCALE)
+img = imgbin = cv.imread('./../RecordedImage_GO-5000M-PGE_00-0C-DF-09-1B-B4_001.tif', cv.IMREAD_GRAYSCALE)
 imgblur = cv.GaussianBlur(imgbin, (3, 3), 1)
 
 
@@ -13,15 +13,14 @@ for i in range(0, dark_reduct.shape[0]):
             imgblur[i][j] = 0
 
 cv.imwrite('./../blur.png', imgblur)
-
-imgblurblack = cv.adaptiveThreshold(imgblur, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY, 201, 2)
+imgblurblack = cv.adaptiveThreshold(imgblur, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY, 121, 2)
 cv.imwrite('./../blurblack.png', imgblurblack)
 
 edges = cv.Canny(imgblurblack, 0, 50)
 cv.imwrite('./../edges.png', edges)
 circles = cv.HoughCircles(imgblurblack, cv.HOUGH_GRADIENT, 5, 20, param1=50, param2=48, minRadius=12, maxRadius=17)
 print('Found ', circles[0, :, 0].shape[0], 'circles')
-cv.imwrite('circles.png', circles)
+cv.imwrite('circles7.png', circles)
 if circles is not None:
     circles = np.uint16(np.around(circles))
 
