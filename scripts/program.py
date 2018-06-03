@@ -2,31 +2,30 @@ import cv2 as cv
 import numpy as np
 import time
 
-idx = '2'
+INPUT_FILE_PATH = './../resources/1.tif'
+SAVE_EACH_PROCESS_STEP = False
 start_time = time.time()
 
-img = imgbin = cv.imread('./../' + idx + '.tif', cv.IMREAD_GRAYSCALE)
+img = imgbin = cv.imread(INPUT_FILE_PATH, cv.IMREAD_GRAYSCALE)
 imgblur = cv.GaussianBlur(imgbin, (3, 3), 1)
 
-cv.imwrite('./../imgblur.png', imgblur)
-
+if SAVE_EACH_PROCESS_STEP:
+    cv.imwrite('./step1_blur.png', imgblur)
 
 ret1, dark_reduct = cv.threshold(imgblur, 90, 255, cv.THRESH_BINARY)
-
 imgblur[dark_reduct < 1] = 0
-
-cv.imwrite('./../dark_reduct.png', dark_reduct)
-
-cv.imwrite('./../imgblurreducted.png', imgblur)
-
+if SAVE_EACH_PROCESS_STEP:
+    cv.imwrite('./step2_dark_reduct.png', dark_reduct)
+    cv.imwrite('./step3_mask_reduct.png', imgblur)
 
 imgblurblack = cv.adaptiveThreshold(imgblur, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY, 121, 2)
-cv.imwrite('./../blurblack.png', imgblurblack)
+if SAVE_EACH_PROCESS_STEP:
+    cv.imwrite('./step4_binarize.png', imgblurblack)
 
 edges = cv.Canny(imgblurblack, 0, 50)
-cv.imwrite('./../edges.png', edges)
-circles = cv.HoughCircles(imgblurblack, cv.HOUGH_GRADIENT, 5, 22, param1=50, param2=44, minRadius=12, maxRadius=17)
-print('Hough found ', circles[0, :, 0].shape[0], 'circles')
+if SAVE_EACH_PROCESS_STEP:
+    cv.imwrite('./step5_edges.png', edges)
+circles = cv.HoughCircles(imgblurblack, cv.HOUGH_GRADIENT, 5, 22, param1=50, param2=38, minRadius=12, maxRadius=17)
 
 img = cv.cvtColor(img, cv.COLOR_GRAY2RGB)
 real_circles = 0
@@ -41,10 +40,9 @@ if circles is not None:
             cv.circle(img, (i[0], i[1]), 2, (37, 37, 237), 2)
             real_circles += 1
 
-print('Really found ', real_circles, ' circles')
-
+print('Found ', real_circles, ' circles')
 print("Time {0} seconds".format((time.time() - start_time)))
 
-cv.imwrite('./../circles' + idx + '.png', img)
+cv.imwrite('./circles.png', img)
 
 print('Exiting')
