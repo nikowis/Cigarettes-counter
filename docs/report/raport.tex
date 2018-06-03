@@ -60,7 +60,7 @@ bindingoffset=10mm, top=20mm, bottom=20mm}
 \newpage
 
 \section{Opis projektu}
-Zadaniem tego projektu jest obliczenie liczby filtrów papierosowych widocznych na zdjęciach będących plikami wejściowymi programu (Rysunek \ref{input}). Jako wyjście program wypisuje w konsoli liczbę zliczonych filtrów oraz tworzy plik z oznaczonymi filtrami na obrazie wejściowym.
+Zadaniem tego projektu jest obliczenie liczby filtrów papierosowych widocznych na zdjęciach, będących plikami wejściowymi programu (Rysunek \ref{input}). Program, jako wyjście, wypisuje w konsoli liczbę zliczonych filtrów oraz tworzy plik z oznaczonymi filtrami na obrazie wejściowym.
 
 
 \begin{figure}[H]
@@ -70,10 +70,10 @@ Zadaniem tego projektu jest obliczenie liczby filtrów papierosowych widocznych 
 \end{figure}
 
 \section{Algorytm}
-Algorytm skłąda się z dwóch głównych faz: fazy preprocessingu oraz z fazy wykrywania okręgów.
+Algorytm składa się z dwóch głównych faz: fazy preprocessingu oraz fazy wykrywania okręgów.
 
 \subsection{Rozmycie gaussowskie}
-Przed rozpoczęciem głównych operacji, wejściowy obraz ulega operacji rozmycia w celu usunięcia drobnych szumów mogących zakłócić wykrywanie filtrów.
+Przed rozpoczęciem głównych operacji, wejściowy obraz ulega rozmyciu w celu usunięcia drobnych szumów mogących zakłócić wykrywanie filtrów.
 
 
 \begin{figure}[H]
@@ -84,7 +84,7 @@ Przed rozpoczęciem głównych operacji, wejściowy obraz ulega operacji rozmyci
 
 \subsection{Segmentacja obrazu}
 
-W celu wyeliminowania marginesów widocznych z góry oraz dołu Rysunku \ref{blur} stosowany jest obraz maska. Obraz maska uzyskiwany jest poprzez binaryzację z progiem globalnym.
+W celu wyeliminowania marginesów widocznych z góry oraz z dołu Rysunku \ref{blur}, stosowany jest obraz maska. Obraz maska uzyskiwany jest poprzez binaryzację z progiem globalnym.
 
 \begin{figure}[H]
 \centering \includegraphics[scale=0.108]{step2.png}
@@ -92,7 +92,7 @@ W celu wyeliminowania marginesów widocznych z góry oraz dołu Rysunku \ref{blu
 \label{reduct}
 \end{figure}
 
-Na obraz z poprzedniego kroku (Rysunek \ref{blur}) nakładane są wszystkie czarne piksele z Rysunku \ref{reduct} dzięki czemu uzyskiwana jest segmentacja obrazu wejściowego. Wynik widoczny jest na Rysunku \ref{segmented}.
+Na obraz z poprzedniego kroku (Rysunek \ref{blur}) nakładane są wszystkie czarne piksele z Rysunku \ref{reduct}, dzięki czemu uzyskiwana jest segmentacja obrazu wejściowego. Wynik widoczny jest na Rysunku \ref{segmented}.
 
 \begin{figure}[H]
 \centering \includegraphics[scale=0.108]{step3.png}
@@ -119,7 +119,7 @@ Po zbinaryzowaniu obrazu wejściowego następuje wykrywanie krawędzi metodą \t
 \end{figure}
 
 \subsection{Transformacja Hough}
-Po wykryciu wszystkich krawędzi algorytm przechodzi do wykrycia okręgów transformacją \textit{Hough}. Rysnuek \ref{circles} przedstawia obraz wejściowy z nałożonymi czarnymi okręgami ze środkiem oznaczonym na czerwono, w miejscach gdzie algorytm wykrył okrąg.
+Po wykryciu wszystkich krawędzi algorytm przechodzi do wykrycia okręgów transformacją \textit{Hough}. Rysnuek \ref{circles} przedstawia obraz wejściowy z nałożonymi czarnymi okręgami, ze środkiem oznaczonym na czerwono w miejscach gdzie algorytm wykrył okrąg.
 
 \begin{figure}[H]
 \centering \includegraphics[scale=0.108]{step6.png}
@@ -128,7 +128,7 @@ Po wykryciu wszystkich krawędzi algorytm przechodzi do wykrycia okręgów trans
 \end{figure}
 
 \subsection{Postprocessing}
-Jak widać na Rysunku \ref{fail} algorytm nie jest w stanie odróżnić filtra od luki powstałej pomiędzy papierosami gdy ma ona okrągły kształt.
+Jak widać na Rysunku \ref{fail}, algorytm nie jest w stanie odróżnić filtra od luki powstałej pomiędzy papierosami, gdy ma ona okrągły kształt.
 
 Z tego powodu po wykryciu wszystkich okręgów dodana jest faza, podczas której odrzucane są wszystkie te okręgi, których środek wypada w miejscu ciemnego piksela. Wynik widoczny jest na Rysunku \ref{fix}.
 
@@ -146,16 +146,16 @@ Z tego powodu po wykryciu wszystkich okręgów dodana jest faza, podczas której
 
 \section{Instrukcja obsługi}
 
-Program uruchamiany jest poprzez skrypt \textbf{program.py} napisany w języku \textit{Python 3.6}. Na początku skryptu są zadeklarowane dwa parametry sterujące wykonaniem programu:
+Program uruchamiany jest poprzez skrypt \textbf{program.py} napisany w języku \textit{Python 3.6}. Na początku skryptu zadeklarowane są dwa parametry sterujące wykonaniem programu:
 \begin{itemize}
-\item \textit{INPUT\_FILE\_PATH} ścieżka do pliku wejściowego;
+\item \textit{INPUT\_FILE\_PATH} ścieżka do pliku wejściowego oraz
 \item \textit{SAVE\_EACH\_PROCESS\_STEP} flaga decydująca o zapisywaniu wszystkich pośrednich kroków wykonania programu.
 \end{itemize}
 
-Wynikiem programu jest widoczna w konsoli liczba znalezionych filtrów oraz czas wykonania programu. Dodatkowo program w miejscu uruchomienia skryptu tworzy plik wyjściowy z oznaczonymi filtrami na obrazie wejściowym o nazwie \textbf{circles.png}.
+Wynikiem programu jest widoczna w konsoli liczba znalezionych filtrów oraz czas wykonania programu. Dodatkowo program, w miejscu uruchomienia skryptu, tworzy plik wyjściowy z oznaczonymi filtrami na obrazie wejściowym o nazwie \textbf{circles.png}.
 
 \section{Wyniki i wnioski}
-Wyniki projektu zostały opracowane w oparciu o zbiór siedmiu unikalnych obrazów wejściowych. Każdy z obrazów został ręcznie przeanalizowany pod względem liczby filtrów dzięki czemu możliwa była ocena jakości zaimplementowanego programu.
+Wyniki projektu zostały opracowane w oparciu o zbiór siedmiu unikalnych obrazów wejściowych. Każdy z obrazów został ręcznie przeanalizowany pod względem liczby filtrów, dzięki czemu możliwa była ocena jakości zaimplementowanego programu.
 
 \begin{figure}[H]%
 \centering
@@ -184,7 +184,7 @@ Wyniki projektu zostały opracowane w oparciu o zbiór siedmiu unikalnych obraz�
 \label{results1}
 \end{figure}
 
-Spośród dostępnych danych testowych uzyskaliśmy prawie 100\% dokładności. Na przedstawionych obrazach jest łącznie 33 071 filtrów z których program nie wykrył tylko dwóch. Daje to dokładność na poziomie 99.994\%. Warto zauważy, iż prosta operacja usuwania nadmiarowych okręgów pozwoliła na całkowite pozbycie się ich. Choć na obrazach wyjściowych widoczne są delikatne przesunięcia filtrów od znalezionych okręgów nie ma to żadnego wpływu na liczbę zliczonych obiektów. Uzyskany algorytm jest odporny na nierówne oświetlenie (Rysunek \ref{light}) co jego jest dodatkową zaletą. 
+Spośród dostępnych danych testowych uzyskaliśmy prawie 100\% dokładności. Na przedstawionych obrazach jest łącznie 33 071 filtrów, z których program nie wykrył tylko dwóch. Daje to dokładność na poziomie 99.994\%. Warto zauważy, iż prosta operacja usuwania nadmiarowych okręgów pozwoliła na całkowite pozbycie się ich. Choć na obrazach wyjściowych widoczne są delikatne przesunięcia filtrów od znalezionych okręgów, nie ma to żadnego wpływu na liczbę zliczonych obiektów. Uzyskany algorytm jest odporny na nierówne oświetlenie (Rysunek \ref{light}), co jego jest dodatkową zaletą. 
 
 \begin{figure}[H]%
 \centering
