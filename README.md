@@ -6,7 +6,7 @@ Final accuracy reached on 7 example input images was ~99.994% (which is 2 uncoun
 
 [Example input image](docs/report/1.png)
 
-[Example output image with 4725 filters detected](docs/report/1.png)
+[Example output image with 4725 filters detected](docs/report/circles1.png)
 
 LaTeX report in polish is available for this project [here](docs/report/raport.tex).
 
